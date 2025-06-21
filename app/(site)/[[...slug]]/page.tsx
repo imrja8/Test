@@ -1,5 +1,4 @@
 import { source } from '@/lib/source';
-import { baseUrl, createMetadata } from "@/utils/metadata";
 import {
   DocsPage,
   DocsBody,
