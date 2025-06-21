@@ -1,26 +1,46 @@
 import type { Metadata } from 'next/types';
 
 export function createMetadata(meta: Metadata): Metadata {
-  const title = meta.title ?? 'Tegota Docs';
-  const description = meta.description ?? 'Official documentation for Tegota';
+  // Extract usable title string for OG/Twitter (handle string or object)
+  let titleString: string | undefined;
+
+  if (typeof meta.title === 'string') {
+    titleString = meta.title;
+  } else if (typeof meta.title === 'object' && meta.title.default) {
+    titleString = meta.title.default;
+  }
+
+  const description = meta.description ?? 'Tegota Docs';
 
   return {
     ...meta,
     openGraph: {
-      title,
+      title: titleString,
       description,
-      url: 'https://docs.tegota.com',
-      images: '/banner.png',
+      url: meta.metadataBase?.toString() ?? 'https://docs.tegota.com',
+      images: [
+        {
+          url: '/banner.png',
+          alt: 'Tegota Docs Banner',
+          width: 1200,
+          height: 630,
+        },
+      ],
       siteName: 'Tegota Docs',
       ...meta.openGraph,
     },
     twitter: {
       card: 'summary_large_image',
       creator: '@Official_R_deep',
-      title,
+      title: titleString,
       description,
-      images: '/banner.png',
+      images: ['/banner.png'],
       ...meta.twitter,
     },
   };
 }
+
+export const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? new URL('https://docs.tegota.com')
+    : new URL('http://localhost:3000');
