@@ -1,12 +1,15 @@
 import type { Metadata } from 'next/types';
 
 export function createMetadata(meta: Metadata): Metadata {
-  // Extract usable title string for OG/Twitter (handle string or object)
   let titleString: string | undefined;
 
   if (typeof meta.title === 'string') {
     titleString = meta.title;
-  } else if (typeof meta.title === 'object' && meta.title.default) {
+  } else if (
+    meta.title !== null &&
+    typeof meta.title === 'object' &&
+    'default' in meta.title
+  ) {
     titleString = meta.title.default;
   }
 
