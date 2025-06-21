@@ -1,28 +1,26 @@
 import type { Metadata } from 'next/types';
 
-export function createMetadata(override: Metadata): Metadata {
+export function createMetadata(meta: Metadata): Metadata {
+  const title = meta.title ?? 'Tegota Docs';
+  const description = meta.description ?? 'Official documentation for Tegota';
+
   return {
-    ...override,
+    ...meta,
     openGraph: {
-      title: override.title ?? undefined,
-      description: override.description ?? undefined,
+      title,
+      description,
       url: 'https://docs.tegota.com',
       images: '/banner.png',
       siteName: 'Tegota Docs',
-      ...override.openGraph,
+      ...meta.openGraph,
     },
     twitter: {
       card: 'summary_large_image',
       creator: '@Official_R_deep',
-      title: override.title ?? undefined,
-      description: override.description ?? undefined,
+      title,
+      description,
       images: '/banner.png',
-      ...override.twitter,
+      ...meta.twitter,
     },
   };
 }
-
-export const baseUrl =
-  process.env.NODE_ENV === 'production'
-    ? new URL('http://localhost:3000')
-    : new URL(`https://docs.tegota.com`);
