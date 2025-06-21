@@ -1,0 +1,14 @@
+{
+	"root": true,
+  "defaultOpen": true,
+	"pages": [
+    "index",
+		"get-started",
+    "components",
+    "plugins",
+    "testing",
+    "deployments",
+		"troubleshooting",
+    "community"
+  ]
+}
